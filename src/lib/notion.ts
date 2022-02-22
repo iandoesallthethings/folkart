@@ -9,7 +9,8 @@ export default notion
 export async function getDb(queryObject) {
 	try {
 		return (await notion.databases.query(queryObject)).results.map(parseProperties)
-	} catch {
+	} catch (error) {
+		console.log(error)
 		return []
 	}
 }
@@ -17,7 +18,8 @@ export async function getDb(queryObject) {
 export async function getDbWithPages(queryObject) {
 	try {
 		return (await getDb(queryObject)).map(getPage)
-	} catch {
+	} catch (error) {
+		console.log(error)
 		return []
 	}
 }

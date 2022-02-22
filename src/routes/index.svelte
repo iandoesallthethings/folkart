@@ -37,7 +37,7 @@
 			on:click={() => load(recording)}
 		>
 			<div>{recording.Name}</div>
-			<div>{recording['Written']}</div>
+			<!-- <div>{recordings.Written}</div> -->
 		</div>
 	{/each}
 </section>
