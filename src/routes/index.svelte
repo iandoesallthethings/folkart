@@ -52,7 +52,7 @@
 	}
 
 	.list {
-		@apply divide-y max-w-prose border rounded-md;
+		@apply divide-y border rounded-md;
 	}
 
 	.list-card {

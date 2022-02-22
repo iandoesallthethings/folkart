@@ -9,6 +9,6 @@
 
 <style>
 	main {
-		@apply p-8 flex flex-col;
+		@apply p-8 flex flex-col max-w-prose;
 	}
 </style>
