@@ -1,4 +1,4 @@
-import { getDb, getDbWithPages } from '$lib/notion'
+import { getDb } from '$lib/notion'
 import type { Db } from '$lib/types'
 
 const recordingsId = process.env.NOTION_RECORDINGS_DB
