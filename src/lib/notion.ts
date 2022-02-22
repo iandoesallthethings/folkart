@@ -7,11 +7,19 @@ const notion = new Client({ auth: process.env.NOTION_API_KEY })
 export default notion
 
 export async function getDb(queryObject) {
-	return (await notion.databases.query(queryObject)).results.map(parseProperties)
+	try {
+		return (await notion.databases.query(queryObject)).results.map(parseProperties)
+	} catch {
+		return []
+	}
 }
 
 export async function getDbWithPages(queryObject) {
-	return (await getDb(queryObject)).map(getPage)
+	try {
+		return (await getDb(queryObject)).map(getPage)
+	} catch {
+		return []
+	}
 }
 
 export async function getPage(row) {

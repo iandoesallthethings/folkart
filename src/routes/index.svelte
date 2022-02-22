@@ -21,16 +21,45 @@
 
 <h2>Recordings</h2>
 
-{#key currentRecording}
-	<h3>{currentRecording?.Name || ' '}</h3>
-	<audio controls>
-		<source src={currentRecording?.Latest} type="audio/mpeg" />
-	</audio>
-{/key}
+<section class="player">
+	{#key currentRecording}
+		<h3>{currentRecording?.Name || ' '}</h3>
+		<audio controls>
+			<source src={currentRecording?.Latest} type="audio/mpeg" />
+		</audio>
+	{/key}
+</section>
 
-<div id="waveform" />
+<section class="list">
+	{#each recordings as recording}
+		<div
+			class="list-card {currentRecording?.id === recording?.id ? 'selected' : ''}"
+			on:click={() => load(recording)}
+		>
+			<div>{recording.Name}</div>
+			<div>{recording['Written']}</div>
+		</div>
+	{/each}
+</section>
 
-{#each recordings as recording}
-	<p on:click={() => load(recording)}>{recording.Name}</p>
-	<!-- {JSON.stringify(recording)} -->
-{/each}
+<style>
+	section {
+		@apply m-5;
+	}
+
+	.player {
+		@apply border rounded-md p-2;
+	}
+
+	.list {
+		@apply divide-y max-w-prose border rounded-md;
+	}
+
+	.list-card {
+		@apply p-2 cursor-pointer transition flex justify-between;
+	}
+
+	.list-card.selected {
+		@apply bg-sky-200;
+	}
+</style>

@@ -3,4 +3,12 @@
 	import 'highlight.js/styles/github.css'
 </script>
 
-<slot />
+<main>
+	<slot />
+</main>
+
+<style>
+	main {
+		@apply p-8 flex flex-col;
+	}
+</style>
