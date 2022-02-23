@@ -1,14 +1,17 @@
 <script>
 	import '../app.css'
 	import 'highlight.js/styles/github.css'
+	import Obi from '$lib/Obi.svelte'
 </script>
 
-<main>
-	<slot />
-</main>
+<Obi>
+	<main>
+		<slot />
+	</main>
+</Obi>
 
 <style>
 	main {
-		@apply p-8 flex flex-col max-w-prose;
+		@apply flex flex-col max-w-prose;
 	}
 </style>
