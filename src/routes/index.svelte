@@ -8,6 +8,25 @@
 </script>
 
 <script lang="ts">
+	import { onMount } from 'svelte'
+	import WaveSurfer from 'wavesurfer.js'
+
+	let wavesurfer
+	let waveform
+
+	onMount(() => {
+		setTimeout(() => {
+			wavesurfer = WaveSurfer.create({
+				container: waveform,
+				normalize: true,
+				responsive: true,
+				hideScrollbar: true,
+				pixelRatio: 1
+			})
+			wavesurfer.load(recordings[0].Latest)
+		}, 500)
+	})
+
 	export let recordings = []
 
 	let current = 0
@@ -19,41 +38,45 @@
 
 	function load(index: number) {
 		current = index
+		wavesurfer.load(recordings[current].Latest)
 	}
 
 	function previous() {
 		current = wrap(current - 1, 0, recordings.length)
+		load(current)
 	}
 
 	function next() {
 		current = wrap(current + 1, 0, recordings.length)
+		load(current)
 	}
 
 	function autoNext() {
 		if (!autoplay) return
 		next()
 	}
+	function playPause() {
+		wavesurfer.playPause()
+	}
 </script>
 
 <h1>Folk Art</h1>
 
-<section class="player">
-	{#key current}
-		<div>
-			<h3>{recordings[current].Name || ' '}</h3>
-			<audio on:ended={autoNext} {autoplay} controls>
-				<source src={recordings[current].Latest} type="audio/mpeg" />
-				Get a modern browser, jeez! Whatever, the track is
-				<a href={recordings[current].Latest}>here</a>.
-			</audio>
-		</div>
-	{/key}
+<section>
+	<h3>{recordings[current].Name}</h3>
+	<div id="waveform" bind:this={waveform} />
+	<div class="controls">
+		<button on:click={previous}><i class="fas fa-step-backward" /></button>
 
-	<div>
-		<button on:click={previous}>⏮</button>
-		<button on:click={next}>⏭</button>
+		<button on:click={playPause}>
+			<i class="fas fa-{wavesurfer?.isPlaying() ? 'pause' : 'play'}" />
+		</button>
+
+		<button on:click={next}><i class="fas fa-step-forward" /></button>
+
 		<label>
-			<input type="checkbox" bind:checked={autoplay} /> Auto
+			<input type="checkbox" bind:checked={autoplay} />
+			auto
 		</label>
 	</div>
 </section>
@@ -62,7 +85,6 @@
 	{#each recordings as recording, i}
 		<div class="list-card {current === i ? 'selected' : ''}" on:click={() => load(i)}>
 			<div>{recording.Name}</div>
-			<!-- <div>{recordings.Written}</div> -->
 		</div>
 	{/each}
 </section>
@@ -71,9 +93,8 @@
 	section {
 		@apply m-5;
 	}
-
-	.player {
-		@apply border rounded-md p-2 flex items-center justify-between;
+	#waveform {
+		@apply w-full h-full;
 	}
 
 	.list {
