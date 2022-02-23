@@ -8,36 +8,7 @@
 </script>
 
 <script lang="ts">
-	import { onMount } from 'svelte'
-	import WaveSurfer from 'wavesurfer.js'
-	import { autoplay } from '$lib/stores'
-	import shortcut from '$lib/shortcut'
-
-	let wavesurfer
-	let waveform
-
-	onMount(() => {
-		wavesurfer = WaveSurfer.create({
-			container: waveform,
-			normalize: true,
-			responsive: true,
-			hideScrollbar: true,
-			pixelRatio: 1
-		})
-
-		wavesurfer.on('pause', () => (playing = false))
-		wavesurfer.on('play', () => (playing = true))
-		wavesurfer.on('ready', () => {
-			if ($autoplay) wavesurfer.play()
-		})
-		wavesurfer.on('finish', () => {
-			if ($autoplay) next()
-		})
-
-		wavesurfer.load(recordings[0].Latest)
-	})
-
-	let playing = false
+	import Player from '$lib/Player.svelte'
 
 	export let recordings = []
 
@@ -47,91 +18,37 @@
 		return num >= min ? num % max : ((num % max) + max) % max
 	}
 
-	function load(index: number) {
-		current = index
-		wavesurfer.load(recordings[current].Latest)
-	}
-
 	function previous() {
 		current = wrap(current - 1, 0, recordings.length)
-		load(current)
+		load()
 	}
 
 	function next() {
 		current = wrap(current + 1, 0, recordings.length)
-		load(current)
+		load()
 	}
 
-	function playPause() {
-		wavesurfer.playPause()
-		playing = wavesurfer.isPlaying()
-	}
-
-	function skip(s) {
-		console.log('Seeking: ', s)
-		wavesurfer.skip(s)
+	function load(index: number = current) {
+		current = index
+		// wavesurfer.load(track.Latest)
 	}
 </script>
 
-<h1>Folk Art</h1>
+<div class="flex flex-col w-full space-x-4">
+	<h1>Folk Art</h1>
 
-<section class="player">
-	<h3 class="px-2">{recordings[current].Name}</h3>
-	<div id="waveform" bind:this={waveform} />
-	<div class="controls">
-		<button on:click={previous}>
-			<i class="fas fa-step-backward" />
-		</button>
+	<Player track={recordings[current]} on:previous={previous} on:next={next} />
 
-		{#key playing}
-			<button on:click={playPause} use:shortcut={{ code: 'Space' }} use:shortcut={{ code: 'KeyK' }}>
-				<i class="fas fa-{playing ? 'pause' : 'play'}" />
-			</button>
-		{/key}
-
-		<button on:click={next}>
-			<i class="fas fa-step-forward" />
-		</button>
-
-		<button on:click={() => skip(-5)} use:shortcut={{ code: 'KeyJ' }} class="hidden" />
-		<button on:click={() => skip(5)} use:shortcut={{ code: 'KeyL' }} class="hidden" />
-
-		<label class="cursor-pointer">
-			<input type="checkbox" bind:checked={$autoplay} />
-			Autoplay
-		</label>
-	</div>
-</section>
-
-<section class="list">
-	{#each recordings as recording, i}
-		<div class="list-card {current === i ? 'selected' : ''}" on:click={() => load(i)}>
-			<div>{recording.Name}</div>
-		</div>
-	{/each}
-</section>
+	<section class="list">
+		{#each recordings as recording, i}
+			<div class="list-card {current === i ? 'selected' : ''}" on:click={() => load(i)}>
+				<div>{recording.Name}</div>
+			</div>
+		{/each}
+	</section>
+</div>
 
 <style>
-	section {
-		@apply my-5;
-	}
-
-	.player {
-		@apply border rounded-md py-2 flex flex-col space-y-2;
-	}
-
-	#waveform {
-		@apply w-full h-full;
-	}
-
-	.controls {
-		@apply flex space-x-2 items-center px-2;
-	}
-
-	.controls > button {
-		@apply hover:bg-blue-300/50 px-2  rounded-md;
-	}
-
 	.list {
 		@apply divide-y border rounded-md overflow-hidden;
 	}

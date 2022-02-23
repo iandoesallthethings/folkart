@@ -38,9 +38,10 @@
 	aside {
 		@apply z-50 relative bg-cover bg-center w-32 md:w-52 h-screen flex justify-center items-center overflow-hidden;
 	}
-	.backgroundVideo {
+
+	/* .backgroundVideo {
 		@apply absolute h-full cursor-pointer;
-	}
+	} */
 
 	.paused {
 		@apply hidden;
