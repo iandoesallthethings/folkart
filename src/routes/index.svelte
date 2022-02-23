@@ -17,8 +17,8 @@
 		return num >= min ? num % max : ((num % max) + max) % max
 	}
 
-	function load(recordingIndex) {
-		current = recordingIndex
+	function load(index: number) {
+		current = index
 	}
 
 	function previous() {
@@ -37,14 +37,14 @@
 
 <h1>Folk Art</h1>
 
-<h2>Recordings</h2>
-
 <section class="player">
 	{#key current}
 		<div>
 			<h3>{recordings[current].Name || ' '}</h3>
-			<audio controls on:ended={autoNext} {autoplay}>
+			<audio on:ended={autoNext} {autoplay} controls>
 				<source src={recordings[current].Latest} type="audio/mpeg" />
+				Get a modern browser, jeez! Whatever, the track is
+				<a href={recordings[current].Latest}>here</a>.
 			</audio>
 		</div>
 	{/key}
@@ -53,8 +53,7 @@
 		<button on:click={previous}>⏮</button>
 		<button on:click={next}>⏭</button>
 		<label>
-			<input type="checkbox" bind:checked={autoplay} />
-			Autoplay
+			<input type="checkbox" bind:checked={autoplay} /> Auto
 		</label>
 	</div>
 </section>
@@ -78,14 +77,14 @@
 	}
 
 	.list {
-		@apply divide-y border rounded-md;
+		@apply divide-y border rounded-md overflow-hidden;
 	}
 
 	.list-card {
-		@apply p-2 cursor-pointer transition flex justify-between;
+		@apply p-2 cursor-pointer flex justify-between hover:bg-sky-100 transition;
 	}
 
 	.list-card.selected {
-		@apply bg-sky-200;
+		@apply bg-sky-300 hover:bg-sky-200 transition;
 	}
 </style>
