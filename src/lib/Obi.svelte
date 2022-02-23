@@ -11,11 +11,12 @@
 </script>
 
 <div class="frame flex flex-row w-full">
-	<aside on:click={toggleVideo} style="background-image: url({imagePath});">
+	<!-- <aside on:click={toggleVideo} style="background-image: url({imagePath});"> -->
+	<aside on:click={toggleVideo}>
 		<video
 			src={videoPath}
-			poster="images/saxloop-frame2.png"
-			preload="images/saxloop-frame2.png"
+			poster={videoPath}
+			preload={videoPath}
 			class:paused
 			playsInline
 			muted
@@ -36,7 +37,9 @@
 	}
 
 	aside {
-		@apply z-50 relative bg-cover bg-center w-32 md:w-52 h-screen flex justify-center items-center overflow-hidden;
+		background: linear-gradient(to right, rgba(255, 255, 255, 0) 20%, rgba(255, 255, 255, 1)),
+			url(folkart1.jpeg);
+		@apply z-50 relative bg-cover bg-center w-32 md:w-52 h-screen flex justify-center items-center overflow-hidden transition;
 	}
 
 	/* .backgroundVideo {

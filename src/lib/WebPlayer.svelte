@@ -29,6 +29,10 @@
 	function skip(e) {
 		player.currentTime += e.detail
 	}
+
+	function toggleMute() {
+		player.muted = !player.muted
+	}
 </script>
 
 <section>
@@ -43,10 +47,12 @@
 
 	<Controls
 		playing={!player?.paused}
+		muted={player?.muted}
 		on:playPause={playPause}
 		on:next={next}
 		on:previous={previous}
 		on:skip={skip}
+		on:mute={toggleMute}
 	/>
 </section>
 

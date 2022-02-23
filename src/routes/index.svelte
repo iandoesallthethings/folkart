@@ -28,7 +28,7 @@
 		current = wrap(current + 1, 0, recordings.length)
 	}
 
-	function load(e) {
+	function select(e) {
 		current = e.detail
 	}
 </script>
@@ -38,7 +38,7 @@
 
 	<Player track={recordings[current]} on:previous={previous} on:next={next} />
 
-	<TrackList {recordings} {current} on:select={load} />
+	<TrackList {recordings} {current} on:select={select} />
 </div>
 
 <style>

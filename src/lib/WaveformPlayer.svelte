@@ -6,10 +6,14 @@
 
 	const dispatch = createEventDispatcher()
 
+	export let track
+
 	let wavesurfer
 	let waveform
 
-	export let track
+	let playing = false
+	let muted = false
+
 	$: if (wavesurfer && track.Latest) wavesurfer.load(track.Latest)
 
 	onMount(() => {
@@ -33,8 +37,6 @@
 		wavesurfer.load(track.Latest)
 	})
 
-	let playing = false
-
 	function next() {
 		dispatch('next')
 	}
@@ -51,6 +53,11 @@
 		wavesurfer.playPause()
 		playing = wavesurfer.isPlaying()
 	}
+
+	function toggleMute() {
+		wavesurfer.mute()
+		muted = wavesurfer.getMute()
+	}
 </script>
 
 <section>
@@ -59,10 +66,12 @@
 
 	<Controls
 		{playing}
+		{muted}
 		on:skip={skip}
 		on:next={next}
 		on:previous={previous}
 		on:playPause={playPause}
+		on:mute={toggleMute}
 	/>
 </section>
 
