@@ -10,6 +10,6 @@
 
 <style>
 	.tooltip-content {
-		@apply absolute top-8 object-contain text-xs text-gray-700 m-1 p-3 z-10 w-max rounded-md bg-gray-500/60 invisible group-hover:visible;
+		@apply absolute top-8 object-contain text-xs text-gray-700 m-1 p-3 z-10 w-max rounded-md bg-gray-500/30 invisible group-hover:visible;
 	}
 </style>

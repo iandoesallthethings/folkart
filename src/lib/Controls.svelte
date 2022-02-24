@@ -80,7 +80,7 @@
 
 	<div id="help">
 		<ToolTip>
-			<i slot="trigger" class="fa-solid fa-question-circle text-gray-400 mx-2" />
+			<i slot="trigger" class="fa-solid fa-question-circle text-gray-300 mx-2" />
 
 			<div slot="content" class="flex flex-col space-y-2">
 				<p><span class="badge">K</span> Play/pause</p>

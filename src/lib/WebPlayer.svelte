@@ -76,6 +76,7 @@
 
 		<div id="zoomview" bind:this={zoomview} />
 		<div id="overview" bind:this={overview} />
+		<p>Note: The waveform player's still a lil broken rn. Workin' on it. 🐸</p>
 
 		<audio
 			on:play={() => (playing = true)}
