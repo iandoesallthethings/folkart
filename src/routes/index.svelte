@@ -8,7 +8,6 @@
 </script>
 
 <script lang="ts">
-	// import Player from '$lib/WaveformPlayer.svelte'
 	import Player from '$lib/WebPlayer.svelte'
 	import TrackList from '$lib/TrackList.svelte'
 
@@ -40,6 +39,3 @@
 
 	<TrackList {recordings} {current} on:select={select} />
 </div>
-
-<style>
-</style>

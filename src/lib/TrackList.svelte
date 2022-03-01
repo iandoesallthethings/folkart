@@ -20,7 +20,7 @@
 
 <style>
 	.list {
-		@apply divide-y border rounded-md overflow-hidden;
+		@apply divide-y border rounded-md overflow-y-scroll;
 	}
 
 	.list-card {

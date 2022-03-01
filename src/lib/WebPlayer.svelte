@@ -1,15 +1,17 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte'
-	import { autoplay } from '$lib/stores'
-	import Controls from './Controls.svelte'
-	// import Peaks from 'peaks.js'
 	import { onMount } from 'svelte/internal'
+	// import Peaks from 'peaks.js'
+
+	import { autoplay } from '$lib/stores'
+	import Controls from '$lib/Controls.svelte'
 
 	const dispatch = createEventDispatcher()
 
 	export let track
 
 	let player
+	let playing
 
 	function next() {
 		dispatch('next')
@@ -38,22 +40,28 @@
 
 	function volumeChange(e) {
 		player.volume = e.detail
+
+		if (player.volume == 0.0) player.muted = true
+		else player.muted = false
 	}
 
-	let Peaks, instance, zoomview, overview
+	let Peaks, instance, overview, zoomview
 
 	onMount(async () => {
 		const module = await import('peaks.js')
 		Peaks = module.default
+	})
 
+	async function initPeaks() {
 		const options = {
-			zoomview: {
-				container: zoomview,
-				waveformColor: 'rgba(125, 211, 252, 100%)'
-			},
+			// zoomview: {
+			// 	container: zoomview,
+			// 	waveformColor: 'rgba(125, 211, 252, 100%)'
+			// },
 			overview: {
 				container: overview,
-				waveformColor: 'rgba(125, 211, 252, 100%)'
+				waveformColor: 'black',
+				playedWaveformColor: 'rgba(125, 211, 252, 100%)'
 			},
 			mediaElement: player,
 			webAudio: { audioContext: new AudioContext() }
@@ -62,23 +70,26 @@
 		Peaks.init(options, (error, peaks) => {
 			if (error) console.log(error)
 			else instance = peaks
-			// instance.on() and instance.setSource()
 		})
-	})
-	let playing
+	}
+
+	function load() {
+		if (Peaks) initPeaks()
+	}
 </script>
 
-<!-- https://github.com/bbc/peaks.js#install-with-npm -->
-<!-- https://github.com/bbc/peaks.js/issues/433 -->
 <section>
 	{#key track}
 		<h3>{track.Name || ' '}</h3>
 
-		<div id="zoomview" bind:this={zoomview} />
-		<div id="overview" bind:this={overview} />
-		<p>Note: The waveform player's still a lil broken rn. Workin' on it. 🐸</p>
+		<!-- <div id="zoomview" bind:this={zoomview} /> -->
+		<div id="overview" bind:this={overview} class="flex flex-col justify-center">
+			<img src="/notes.svg" alt="loading" class="h-full" />
+			<h3 class="text-sky-300 text-center">Loading Waveform</h3>
+		</div>
 
 		<audio
+			on:durationchange={load}
 			on:play={() => (playing = true)}
 			on:pause={() => (playing = false)}
 			on:ended={autoNext}
@@ -109,8 +120,9 @@
 		@apply border rounded-md flex flex-col space-y-2 py-1;
 	}
 
-	#zoomview,
+	/* #zoomview, */
 	#overview {
 		@apply w-full h-24;
+		/* background-image: url('notes.svg'); */
 	}
 </style>

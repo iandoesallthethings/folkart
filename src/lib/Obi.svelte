@@ -5,8 +5,8 @@
 	let videoPath = ''
 
 	function toggleVideo() {
-		video.paused ? video.play() : video.pause()
-		paused = video.paused
+		// video.paused ? video.play() : video.pause()
+		// paused = video.paused
 	}
 </script>
 
@@ -46,11 +46,11 @@
 		@apply absolute h-full cursor-pointer;
 	} */
 
-	.paused {
+	/* .paused {
 		@apply hidden;
-	}
+	} */
 
 	.content {
-		@apply w-full m-8;
+		@apply w-full mx-8 mt-4;
 	}
 </style>

@@ -2,7 +2,8 @@
 	import { createEventDispatcher } from 'svelte'
 	import { autoplay } from '$lib/stores'
 	import shortcut from '$lib/shortcut'
-	import ToolTip from './ToolTip.svelte'
+	import ToolTip from '$lib/ToolTip.svelte'
+	import Modal from '$lib/Modal.svelte'
 	import StoreToggle from './StoreToggle.svelte'
 	const dispatch = createEventDispatcher()
 
@@ -10,8 +11,13 @@
 	export let muted = false
 
 	let volume = 1.0
+
 	function volumeChange() {
 		dispatch('volume-change', volume)
+	}
+
+	function toggleMute() {
+		dispatch('mute')
 	}
 
 	const skipSeconds = 5
@@ -47,15 +53,12 @@
 		/>
 
 		<div class="relative flex group">
-			<button on:click={() => dispatch('mute')} use:shortcut={{ code: 'KeyM' }}>
+			<button on:click={toggleMute} use:shortcut={{ code: 'KeyM' }}>
 				<i class="fa-solid fa-volume{muted ? '-mute' : '-up'}" />
 			</button>
-			<div
-				class="absolute -rotate-90 -left-6 bottom-10 hidden group-hover:block transition bg-white border p-1 rounded-md flex align-center justify-center transition"
-			>
-				{volume}
+			<div id="volume">
 				<input
-					on:input={volumeChange}
+					on:change={volumeChange}
 					bind:value={volume}
 					min="0.0"
 					max="1.0"
@@ -78,9 +81,22 @@
 		</ToolTip>
 	</div>
 
-	<div id="help">
+	<div class="flex items-center space-x-2 text-gray-300 mx-2">
+		<!-- <Modal>
+			<ToolTip slot="trigger">
+				<i class="fa-solid fa-gear" slot="trigger" />
+
+				<span slot="content">Settings</span>
+			</ToolTip>
+
+			<div slot="content">
+				<h3>Settings</h3>
+				<p>Derp</p>
+			</div>
+		</Modal> -->
+
 		<ToolTip>
-			<i slot="trigger" class="fa-solid fa-question-circle text-gray-300 mx-2" />
+			<i slot="trigger" class="fa-solid fa-question-circle" />
 
 			<div slot="content" class="flex flex-col space-y-2">
 				<p><span class="badge">K</span> Play/pause</p>
@@ -101,8 +117,8 @@
 		@apply hover:bg-blue-300/50 px-2 rounded-md;
 	}
 
-	#help {
-		@apply flex items-center;
+	#volume {
+		@apply absolute -rotate-90 -left-6 bottom-10 hidden group-hover:block transition bg-white border p-1 rounded-md flex justify-center transition;
 	}
 
 	.badge {

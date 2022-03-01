@@ -12,6 +12,6 @@
 
 <style>
 	main {
-		@apply flex flex-col max-w-prose;
+		@apply flex flex-col max-w-prose overflow-y-auto max-h-min;
 	}
 </style>
