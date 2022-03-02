@@ -32,7 +32,7 @@
 	}
 </script>
 
-<div class="flex flex-col w-full space-y-4">
+<div class="flex flex-col max-w-full space-y-4">
 	<h1>Folk Art</h1>
 
 	<Player track={recordings[current]} on:previous={previous} on:next={next} />

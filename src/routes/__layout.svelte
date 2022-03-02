@@ -2,13 +2,18 @@
 	import '../app.css'
 	import 'highlight.js/styles/github.css'
 	import Obi from '$lib/Obi.svelte'
+	import { darkMode } from '$lib/stores'
+
+	$: console.log($darkMode)
 </script>
 
-<Obi>
-	<main>
-		<slot />
-	</main>
-</Obi>
+<div class={$darkMode ? 'dark' : ''}>
+	<Obi>
+		<main>
+			<slot />
+		</main>
+	</Obi>
+</div>
 
 <style>
 	main {

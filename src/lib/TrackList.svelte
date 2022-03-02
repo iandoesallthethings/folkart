@@ -20,7 +20,7 @@
 
 <style>
 	.list {
-		@apply divide-y border rounded-md overflow-y-scroll;
+		@apply divide-y border rounded-md overflow-y-scroll w-full;
 	}
 
 	.list-card {
@@ -28,6 +28,6 @@
 	}
 
 	.list-card.selected {
-		@apply bg-sky-300 hover:bg-sky-200 transition;
+		@apply bg-sky-300 hover:bg-sky-200 dark:text-gray-800 transition;
 	}
 </style>

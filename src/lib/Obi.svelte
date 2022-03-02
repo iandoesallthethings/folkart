@@ -1,7 +1,9 @@
 <script lang="ts">
+	import { darkMode } from './stores'
+
 	let video
 	let paused
-	let imagePath = '/folkart1.jpeg'
+	let imagePath = '/folkart1.jpg'
 	let videoPath = ''
 
 	function toggleVideo() {
@@ -10,20 +12,9 @@
 	}
 </script>
 
-<div class="frame flex flex-row w-full">
-	<!-- <aside on:click={toggleVideo} style="background-image: url({imagePath});"> -->
-	<aside on:click={toggleVideo}>
-		<!-- <video
-			src={videoPath}
-			poster={videoPath}
-			preload={videoPath}
-			class:paused
-			playsInline
-			muted
-			loop
-			autoplay
-			bind:this={video}
-		/> -->
+<div class="frame flex flex-row w-full dark:bg-black text-gray-700 dark:text-gray-300">
+	<aside style="--gradient-end: {$darkMode ? 'black' : 'white'}" on:click={toggleVideo}>
+		<!-- <video src={videoPath} poster={videoPath} preload={videoPath} class:paused playsInline muted loop autoplay bind:this={video} /> -->
 	</aside>
 
 	<div class="content">
@@ -37,8 +28,8 @@
 	}
 
 	aside {
-		background: linear-gradient(to right, rgba(255, 255, 255, 0) 20%, rgba(255, 255, 255, 1)),
-			url('/folkart1.jpeg');
+		background: linear-gradient(to right, transparent 20%, var(--gradient-end)),
+			url('/folkart1.jpg');
 		@apply z-50 relative bg-cover bg-center w-32 md:w-52 h-screen flex justify-center items-center overflow-hidden transition;
 	}
 

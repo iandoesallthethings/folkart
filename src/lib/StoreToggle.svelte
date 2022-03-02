@@ -13,7 +13,7 @@
 
 <div on:click={toggle} use:shortcut={{ code: shortcutKeyCode }} class="wrapper">
 	<button class="{$store ? 'bg-sky-300' : 'bg-gray-200'} track">
-		<span class="{$store ? 'translate-x-5 text-sky-400' : 'translate-x-0 text-gray-2s00'} slide">
+		<span class="{$store ? 'translate-x-5 text-sky-400' : 'translate-x-0 text-gray-200'} slide">
 			<i class={$store ? onIcon : offIcon} />
 		</span>
 	</button>
@@ -33,6 +33,6 @@
 	}
 
 	.slide {
-		@apply pointer-events-none inline-block h-5 w-5 rounded-full bg-white shadow transform ring-0 transition ease-in-out duration-200 text-xs flex items-center justify-center;
+		@apply pointer-events-none inline-block h-5 w-5 rounded-full bg-white dark:bg-black shadow transform ring-0 transition ease-in-out duration-200 text-xs flex items-center justify-center;
 	}
 </style>

@@ -5,6 +5,7 @@
 
 	import { autoplay, showZoomView } from '$lib/stores'
 	import Controls from '$lib/Controls.svelte'
+	import Loading from '$lib/Loading.svelte'
 
 	const dispatch = createEventDispatcher()
 
@@ -77,7 +78,7 @@
 		})
 	}
 
-	// Probably a more efficient way to do this than calling init every time :/
+	// There's probably a more efficient way to do this than calling init every time :/
 	// But I can't get setSource to work nicely without it double-playing.
 	function load() {
 		if (Peaks) initPeaks()
@@ -92,10 +93,16 @@
 	{#key track}
 		<h3>{track.Name || ' '}</h3>
 
-		<div id="zoomview" bind:this={zoomview} class:hidden={!$showZoomView} />
-		<div id="overview" bind:this={overview} class="flex flex-col justify-center">
-			<img src="/notes.svg" alt="loading" class="h-full" />
-			<h3 class="text-sky-300 text-center">Loading Waveform</h3>
+		<div
+			id="zoomview"
+			bind:this={zoomview}
+			class:hidden={!$showZoomView}
+			class="flex flex-col justify-center"
+		>
+			<Loading />
+		</div>
+		<div id="overview" bind:this={overview} class="flex flex-col justify-center align-center">
+			<Loading />
 		</div>
 
 		<audio

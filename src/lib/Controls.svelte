@@ -93,7 +93,7 @@
 				<h3>Settings</h3>
 
 				<StoreToggle store={darkMode} onIcon={'fa-solid fa-moon'} offIcon={'fa-solid fa-sun'}>
-					Dark Mode (not implemented yet lol)
+					Dark Mode (WIP - looks real bad rn, lol)
 				</StoreToggle>
 
 				<StoreToggle store={showZoomView} onIcon={'fa-solid fa-magnifying-glass'}>
