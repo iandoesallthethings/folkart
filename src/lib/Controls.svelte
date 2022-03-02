@@ -97,7 +97,7 @@
 				</StoreToggle>
 
 				<StoreToggle store={showZoomView} onIcon={'fa-solid fa-magnifying-glass'}>
-					Show Zoom View
+					Show Zoom View (Requires reload or track change)
 				</StoreToggle>
 
 				<StoreToggle store={autoplay} onIcon={'fa-solid fa-play'} offIcon={'fa-solid fa-pause'}>
