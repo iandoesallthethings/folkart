@@ -17,11 +17,15 @@
 			<i class={$store ? onIcon : offIcon} />
 		</span>
 	</button>
+
+	<div>
+		<slot />
+	</div>
 </div>
 
 <style>
 	.wrapper {
-		@apply flex items-center justify-between w-full block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100/20 rounded-md hover:text-gray-900 cursor-pointer;
+		@apply inline-block w-full flex items-center justify-start space-x-4 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100/20 rounded-md hover:text-gray-900 cursor-pointer;
 	}
 
 	.track {

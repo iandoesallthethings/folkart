@@ -3,7 +3,7 @@
 	import { onMount } from 'svelte/internal'
 	// import Peaks from 'peaks.js'
 
-	import { autoplay } from '$lib/stores'
+	import { autoplay, showZoomView } from '$lib/stores'
 	import Controls from '$lib/Controls.svelte'
 
 	const dispatch = createEventDispatcher()
@@ -45,26 +45,28 @@
 		else player.muted = false
 	}
 
-	let Peaks, instance, overview, zoomview
+	let Peaks, instance, audioContext, overview, zoomview
 
 	onMount(async () => {
 		const module = await import('peaks.js')
 		Peaks = module.default
+		audioContext = new AudioContext()
 	})
 
 	async function initPeaks() {
 		const options = {
-			// zoomview: {
-			// 	container: zoomview,
-			// 	waveformColor: 'rgba(125, 211, 252, 100%)'
-			// },
+			mediaElement: player,
+			webAudio: { audioContext },
 			overview: {
 				container: overview,
 				waveformColor: 'black',
 				playedWaveformColor: 'rgba(125, 211, 252, 100%)'
 			},
-			mediaElement: player,
-			webAudio: { audioContext: new AudioContext() }
+			zoomview: {
+				container: zoomview,
+				waveformColor: 'black',
+				playedWaveformColor: 'rgba(125, 211, 252, 100%)'
+			}
 		}
 
 		Peaks.init(options, (error, peaks) => {
@@ -75,6 +77,10 @@
 
 	function load() {
 		if (Peaks) initPeaks()
+		// else {
+		// const options = { mediaUrl: track.Latest, webAudio: { audioContext } }
+		// instance.setSource(options, (e) => console.log(e))
+		// }
 	}
 </script>
 
@@ -82,7 +88,7 @@
 	{#key track}
 		<h3>{track.Name || ' '}</h3>
 
-		<!-- <div id="zoomview" bind:this={zoomview} /> -->
+		{#if $showZoomView} <div id="zoomview" bind:this={zoomview} /> {/if}
 		<div id="overview" bind:this={overview} class="flex flex-col justify-center">
 			<img src="/notes.svg" alt="loading" class="h-full" />
 			<h3 class="text-sky-300 text-center">Loading Waveform</h3>
@@ -120,7 +126,7 @@
 		@apply border rounded-md flex flex-col space-y-2 py-1;
 	}
 
-	/* #zoomview, */
+	#zoomview,
 	#overview {
 		@apply w-full h-24;
 		/* background-image: url('notes.svg'); */

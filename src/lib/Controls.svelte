@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte'
-	import { autoplay } from '$lib/stores'
+	import { autoplay, darkMode, showZoomView } from '$lib/stores'
 	import shortcut from '$lib/shortcut'
 	import ToolTip from '$lib/ToolTip.svelte'
 	import Modal from '$lib/Modal.svelte'
@@ -82,7 +82,7 @@
 	</div>
 
 	<div class="flex items-center space-x-2 text-gray-300 mx-2">
-		<!-- <Modal>
+		<Modal>
 			<ToolTip slot="trigger">
 				<i class="fa-solid fa-gear" slot="trigger" />
 
@@ -91,9 +91,17 @@
 
 			<div slot="content">
 				<h3>Settings</h3>
-				<p>Derp</p>
+				<StoreToggle store={darkMode} onIcon={'fa-solid fa-moon'} offIcon={'fa-solid fa-sun'}>
+					Dark Mode (not implemented yet lol)
+				</StoreToggle>
+				<StoreToggle store={showZoomView} onIcon={'fa-solid fa-magnifying-glass'}>
+					Show Zoom View (Reload or track change required)
+				</StoreToggle>
+				<StoreToggle store={autoplay} onIcon={'fa-solid fa-play'} offIcon={'fa-solid fa-pause'}
+					>Autoplay</StoreToggle
+				>
 			</div>
-		</Modal> -->
+		</Modal>
 
 		<ToolTip>
 			<i slot="trigger" class="fa-solid fa-question-circle" />
