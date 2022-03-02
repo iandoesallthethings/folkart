@@ -91,15 +91,18 @@
 
 			<div slot="content">
 				<h3>Settings</h3>
+
 				<StoreToggle store={darkMode} onIcon={'fa-solid fa-moon'} offIcon={'fa-solid fa-sun'}>
 					Dark Mode (not implemented yet lol)
 				</StoreToggle>
+
 				<StoreToggle store={showZoomView} onIcon={'fa-solid fa-magnifying-glass'}>
-					Show Zoom View (Reload or track change required)
+					Show Zoom View
 				</StoreToggle>
-				<StoreToggle store={autoplay} onIcon={'fa-solid fa-play'} offIcon={'fa-solid fa-pause'}
-					>Autoplay</StoreToggle
-				>
+
+				<StoreToggle store={autoplay} onIcon={'fa-solid fa-play'} offIcon={'fa-solid fa-pause'}>
+					Autoplay
+				</StoreToggle>
 			</div>
 		</Modal>
 
