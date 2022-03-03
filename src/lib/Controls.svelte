@@ -4,7 +4,9 @@
 	import shortcut from '$lib/shortcut'
 	import ToolTip from '$lib/ToolTip.svelte'
 	import Modal from '$lib/Modal.svelte'
-	import StoreToggle from './StoreToggle.svelte'
+	import StoreToggle from '$lib/StoreToggle.svelte'
+	import Settings from '$lib/Settings.svelte'
+	import Hotkeys from '$lib/Hotkeys.svelte'
 	const dispatch = createEventDispatcher()
 
 	export let playing = false
@@ -89,33 +91,8 @@
 				<span slot="content">Settings</span>
 			</ToolTip>
 
-			<div slot="content">
-				<h3>Settings</h3>
-
-				<StoreToggle store={darkMode} onIcon={'fa-solid fa-moon'} offIcon={'fa-solid fa-sun'}>
-					Dark Mode (WIP - looks real bad rn, lol)
-				</StoreToggle>
-
-				<StoreToggle store={showZoomView} onIcon={'fa-solid fa-magnifying-glass'}>
-					Show Zoom View (Requires reload or track change)
-				</StoreToggle>
-
-				<StoreToggle store={autoplay} onIcon={'fa-solid fa-play'} offIcon={'fa-solid fa-pause'}>
-					Autoplay
-				</StoreToggle>
-			</div>
+			<Settings slot="content" />
 		</Modal>
-
-		<ToolTip>
-			<i slot="trigger" class="fa-solid fa-question-circle" />
-
-			<div slot="content" class="flex flex-col space-y-2">
-				<p><span class="badge">K</span> Play/pause</p>
-				<p><span class="badge">J/L</span> Scrub backwards/forwards</p>
-				<p><span class="badge">M</span> Mute/unmute</p>
-				<p><span class="badge">A</span> Toggle Autoplay</p>
-			</div>
-		</ToolTip>
 	</div>
 </div>
 
