@@ -8,6 +8,16 @@ const config = {
 	// for more information about preprocessors
 	preprocess: [preprocess({ postcss: true })],
 
+	// This is a longshot to fix the incorrect unused-selector warnings:
+	// Still doesn't fix in vscode :/
+	onwarn: (warning, handler) => {
+		const { code, frame } = warning
+
+		if (code === 'css-unused-selector' && frame.includes('dark')) return
+
+		handler(warning)
+	},
+
 	kit: {
 		adapter: adapter(),
 		vite: {

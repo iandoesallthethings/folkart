@@ -1,13 +1,20 @@
 // https://svelte.dev/repl/acd92c9726634ec7b3d8f5f759824d15?version=3.38.3
+// import type { Action } from 'svelte/action'
 
-export default (node, params) => {
+const shortcut = (node, params) => {
 	let handler
 	const removeHandler = () => window.removeEventListener('keydown', handler),
 		setHandler = () => {
 			removeHandler()
 			if (!params) return
 			handler = (e) => {
-				if (!!params.alt != e.altKey || !!params.shift != e.shiftKey || !!params.control != (e.ctrlKey || e.metaKey) || params.code != e.code) return
+				if (
+					!!params.alt != e.altKey ||
+					!!params.shift != e.shiftKey ||
+					!!params.control != (e.ctrlKey || e.metaKey) ||
+					params.code != e.code
+				)
+					return
 				e.preventDefault()
 				params.callback ? params.callback() : node.click()
 			}
@@ -19,3 +26,5 @@ export default (node, params) => {
 		destroy: removeHandler
 	}
 }
+
+export default shortcut

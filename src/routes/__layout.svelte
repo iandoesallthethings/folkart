@@ -3,8 +3,6 @@
 	import 'highlight.js/styles/github.css'
 	import Obi from '$lib/Obi.svelte'
 	import { darkMode } from '$lib/stores'
-
-	$: console.log($darkMode)
 </script>
 
 <div class={$darkMode ? 'dark' : ''}>
