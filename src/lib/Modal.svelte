@@ -28,11 +28,11 @@
 
 <style>
 	#wrapper {
-		@apply absolute top-0 left-0 w-full h-full items-center justify-center bg-gray-500/20 z-50;
+		@apply absolute top-0 left-0 w-full h-full items-center justify-center bg-gray-500/20 z-50 p-10;
 	}
 
 	section {
-		@apply max-w-prose bg-white shadow-md text-gray-800 rounded-md p-5;
+		@apply max-w-prose max-h-full overflow-y-auto bg-white shadow-md text-gray-800 rounded-md p-5;
 	}
 
 	.close-button {
