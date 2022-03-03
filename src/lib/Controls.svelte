@@ -1,12 +1,13 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte'
-	import { autoplay, darkMode, showZoomView } from '$lib/stores'
+	import { autoplay } from '$lib/stores'
 	import shortcut from '$lib/shortcut'
+
 	import ToolTip from '$lib/ToolTip.svelte'
 	import Modal from '$lib/Modal.svelte'
 	import StoreToggle from '$lib/StoreToggle.svelte'
 	import Settings from '$lib/Settings.svelte'
-	import Hotkeys from '$lib/Hotkeys.svelte'
+
 	const dispatch = createEventDispatcher()
 
 	export let playing = false

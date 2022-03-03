@@ -111,6 +111,7 @@ const blockTypes = {
 			<figcaption>${parseRichText(video.caption)}</figcaption>
 		`
 	},
+
 	// embed: (embed) => {
 	// 	TODO
 	// 	return `
@@ -120,6 +121,7 @@ const blockTypes = {
 	// 		<figcaption>${parseRichText(embed.caption)}</figcaption>
 	// 	`
 	// },
+
 	// table: (table) => {
 	// 	TODO
 	// 	return
@@ -132,9 +134,6 @@ const blockTypes = {
 	}
 }
 
-// TODO: Find elegant way to implement intrapage links
-// So far, the best way is a wonky a tag right in the notion text:
-// <a href=routename>Link text here! 🤷‍♂️</a>
 function parseRichText(rich_text): HTML {
 	const chunks = rich_text.map(wrapChunk).join('')
 	return `<span>${chunks || '&nbsp;'}</span>` // &nbsp; to make empty paragraphs take up space
@@ -146,7 +145,15 @@ function wrapChunk(chunk) {
 	else return `<span class="${classes(chunk)}">${chunk.text.content}</span>`
 }
 
+// TODO: Find elegant way to implement intrapage links
+// So far, the best way is a wonky a tag right in the notion text:
+// <a href=routename>Link text here! 🤷‍♂️</a>
 function wrapLink(href, content, classes) {
+	if (href.startsWith('http://here/')) {
+		console.log('found a local link!')
+		return `<a href="${href.replace('http://here/', '')}" class="${classes}">${content}</a>`
+	}
+
 	return `<a href="${href}" class="${classes}" target=_blank>${content}</a>`
 }
 
@@ -154,9 +161,10 @@ function parsePlainText(rich_text): PlainText {
 	return rich_text.map((chunk) => chunk.plain_text).join('')
 }
 
-// This assumes tailwind, but it would be pretty easy
-// to use the same classnames on the frontend
 // TODO: make this tailwind agnostic
+// This assumes tailwind, but it would be pretty easy to rewrite this to use
+// generic class names and either suggest classes in README.md or package some
+// classes with the module
 function classes(chunk): CSSClasses {
 	const annotations = chunk.annotations
 	return [
