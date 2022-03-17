@@ -39,8 +39,8 @@
 		</p>
 
 		<p>
-			It'll be a constant work in progress for a long time. There's a writeup of the technical side
-			<a href="https://denkyuu-io.vercel.app/folk-art" target="_blank">here</a>.
+			It'll be a constant work in progress for a long time. There is (or will be) a writeup of the
+			technical side <a href="https://denkyuu-io.vercel.app/folk-art" target="_blank">here</a>.
 		</p>
 
 		<h3>No no, I mean the music. Who made the music? 🙄</h3>
@@ -50,10 +50,13 @@
 			<a href="https://partialsband.com" target="_blank">Partials</a>! Folk Art spawned during the
 			pandemic when it was hard and rare to make music in person. So we went about trying to develop
 			a system of musical languages that we all could "speak" fluently, with the goal of generating
-			tracks start-to-finish in a single day.
+			tracks start-to-finish in a single day. Some are messy, some are catchy, some straight up
+			aren't mastered, mixed or even finished. But this particular showcase isn't about
+			completeness. It's about a single-stroke haiku approach to songwriting. Capture a mood, and
+			freeze it in place.
 		</p>
 
-		<p>These tracks here are the result.</p>
+		<p>These tracks here are the result of the past 2 years.</p>
 	</div>
 </section>
 

@@ -12,6 +12,7 @@
 
 	export let playing = false
 	export let muted = false
+	export let castAvailable = false
 
 	let volume = 1.0
 
@@ -21,6 +22,10 @@
 
 	function toggleMute() {
 		dispatch('mute')
+	}
+
+	function cast() {
+		dispatch('cast')
 	}
 
 	const skipSeconds = 5
@@ -82,6 +87,14 @@
 			/>
 			<div slot="content">Autoplay</div>
 		</ToolTip>
+
+		<!-- <ToolTip>
+			<button on:click={cast} slot="trigger">
+				<i class="fa-brands fa-chromecast {castAvailable ? 'text-sky-400' : 'text-gray-300'} " />
+			</button>
+
+			<div slot="content">{castAvailable ? 'Cast' : 'No remote devices found'}</div>
+		</ToolTip> -->
 	</div>
 
 	<div class="flex items-center space-x-2 text-gray-300 mx-2">
@@ -108,9 +121,5 @@
 
 	#volume {
 		@apply absolute -rotate-90 -left-6 bottom-10 hidden group-hover:block transition bg-white border p-1 rounded-md flex justify-center transition;
-	}
-
-	.badge {
-		@apply bg-sky-200 rounded-md text-xs p-1;
 	}
 </style>

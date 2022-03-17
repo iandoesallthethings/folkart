@@ -1,40 +1,49 @@
-# create-svelte
+# Folk Art
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+This is THE SKETCHIEST self-ish-hosted music sharing solution I could throw together over the course of a few days. It uses the notion parser I originally built for my portfolio that I haven't published yet either. Oh well.
 
-## Creating a project
+Anyway, It relies on the Notion API as a backend, meaning maintaining the library is as easy as dropping files into a notes app. It rules. Seriously.
 
-If you're seeing this, you've probably already done this step. Congrats!
+## Todo
 
-```bash
-# create a new project in the current directory
-npm init svelte@next
+- [x] Pull songs from notion DB
+- [x] Player controls with nicer buttons
+- [x] Implement youtubish hotkeys
+- [x] Store autoplay and stuff in localstorage
+- [x] Drop in ~~wavesurfer~~ Peaks.js for waveform view
+- [x] Give it some semblance of style 
+- [ ] Add remote play (i.e. chromecast, miracast, appleplay, etc)
+- [ ] Cache waveform data for faster display
+- [ ] Animate obi image somehow (Artbreeder video?)
+- [ ] Different obi image/video per song
+- [ ] Collections/albums/playlists
 
-# create a new project in my-app
-npm init svelte@next my-app
-```
+## Bugs
 
-> Note: the `@next` is temporary
+- [ ] Layout's wonky at mobile widths. Make it less wonky
+- [ ] Waveform takes FOOOOORRRREEEEEEVER
 
 ## Developing
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+First you need a [Notion API Key for an integration with read permissions](https://developers.notion.com/docs/getting-started) and a Notion table with at least `Name`, `Latest` (for audio files), and `Published` (Checkbox) columns. You can add whatever other metadata you want.
 
 ```bash
-npm run dev
+touch .env
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
+# Add NOTION_API_KEY and NOTION_RECORDINGS_DB for the table you created earlier.
+```
+
+Now you can actually run the app.
+
+```bash
+yarn install
+yarn dev
 ```
 
 ## Building
 
-To create a production version of your app:
+Build and preview the production build with `yarn build && yarn preview`
 
-```bash
-npm run build
-```
+## Deploying
 
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+I strongly prefer vercel for these kinds of mini projects. Fork this repo, add it as a vercel app, add your .env variables, and push to `main` (or whatever branch you specify in Vercel. Maybe `production`?).

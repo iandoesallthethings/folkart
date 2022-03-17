@@ -52,6 +52,9 @@
 		const module = await import('peaks.js')
 		Peaks = module.default
 		audioContext = new AudioContext()
+		player.remote.watchAvailability(availabilityCallback).catch(() => {
+			console.log('derp')
+		})
 	})
 
 	async function initPeaks() {
@@ -87,21 +90,28 @@
 		// instance.setSource(options, (e) => console.log(e))
 		// }
 	}
+
+	let castAvailable
+
+	function availabilityCallback(available) {
+		castAvailable = available
+	}
+	async function cast() {
+		await player.remote.prompt()
+	}
+
+	let castButton
 </script>
 
 <section>
 	{#key track}
 		<h3>{track.Name || ' '}</h3>
 
-		<div
-			id="zoomview"
-			bind:this={zoomview}
-			class:hidden={!$showZoomView}
-			class="flex flex-col justify-center"
-		>
+		<div bind:this={zoomview} class:hidden={!$showZoomView} id="zoomview" class="flex waveformview">
 			<Loading />
 		</div>
-		<div id="overview" bind:this={overview} class="flex flex-col justify-center align-center">
+
+		<div bind:this={overview} id="overview" class="flex waveformview">
 			<Loading />
 		</div>
 
@@ -111,6 +121,8 @@
 			on:pause={() => (playing = false)}
 			on:ended={autoNext}
 			autoplay={$autoplay}
+			preload="auto"
+			remote="true"
 			bind:this={player}
 		>
 			<source src={track.Latest} type="audio/mpeg" />
@@ -123,12 +135,14 @@
 	<Controls
 		{playing}
 		muted={player?.muted}
+		{castAvailable}
 		on:playPause={playPause}
 		on:next={next}
 		on:previous={previous}
 		on:skip={skip}
 		on:mute={toggleMute}
 		on:volume-change={volumeChange}
+		on:cast={cast}
 	/>
 </section>
 
@@ -141,5 +155,9 @@
 	#overview {
 		@apply w-full h-24;
 		/* background-image: url('notes.svg'); */
+	}
+
+	.waveformview {
+		@apply flex-col justify-center;
 	}
 </style>

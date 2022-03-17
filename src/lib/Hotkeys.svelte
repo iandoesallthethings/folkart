@@ -24,8 +24,4 @@
 	.label {
 		@apply col-span-9;
 	}
-
-	p {
-		@apply my-5;
-	}
 </style>
