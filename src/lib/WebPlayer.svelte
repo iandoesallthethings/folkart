@@ -99,8 +99,6 @@
 	async function cast() {
 		await player.remote.prompt()
 	}
-
-	let castButton
 </script>
 
 <section>

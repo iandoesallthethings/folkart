@@ -88,13 +88,11 @@
 			<div slot="content">Autoplay</div>
 		</ToolTip>
 
-		<!-- <ToolTip>
-			<button on:click={cast} slot="trigger">
+		{#if castAvailable}
+			<button on:click={cast}>
 				<i class="fa-brands fa-chromecast {castAvailable ? 'text-sky-400' : 'text-gray-300'} " />
 			</button>
-
-			<div slot="content">{castAvailable ? 'Cast' : 'No remote devices found'}</div>
-		</ToolTip> -->
+		{/if}
 	</div>
 
 	<div class="flex items-center space-x-2 text-gray-300 mx-2">
