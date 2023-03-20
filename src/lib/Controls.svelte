@@ -12,7 +12,7 @@
 
 	export let playing = false
 	export let muted = false
-	export let castAvailable = false
+	// export let castAvailable = false
 
 	let volume = 1.0
 
@@ -64,6 +64,7 @@
 			<button on:click={toggleMute} use:shortcut={{ code: 'KeyM' }}>
 				<i class="fa-solid fa-volume{muted ? '-mute' : '-up'}" />
 			</button>
+
 			<div id="volume">
 				<input
 					on:change={volumeChange}

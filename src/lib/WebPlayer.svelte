@@ -91,14 +91,14 @@
 		// }
 	}
 
-	let castAvailable
+	// let castAvailable
 
-	function availabilityCallback(available) {
-		castAvailable = available
-	}
-	async function cast() {
-		await player.remote.prompt()
-	}
+	// function availabilityCallback(available) {
+	// 	castAvailable = available
+	// }
+	// async function cast() {
+	// 	await player.remote.prompt()
+	// }
 
 	let castButton
 </script>
@@ -132,10 +132,10 @@
 		</audio>
 	{/key}
 
+	<!-- {castAvailable} -->
 	<Controls
 		{playing}
 		muted={player?.muted}
-		{castAvailable}
 		on:playPause={playPause}
 		on:next={next}
 		on:previous={previous}
