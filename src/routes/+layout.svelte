@@ -14,6 +14,6 @@
 
 <style lang="postcss">
 	main {
-		@apply flex flex-col gap-4 max-w-prose overflow-hidden h-[100dvh];
+		@apply flex flex-col gap-4 w-full overflow-hidden items-center h-[100dvh];
 	}
 </style>

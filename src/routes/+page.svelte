@@ -26,7 +26,7 @@
 	}
 </script>
 
-<div class="p-4 flex flex-col gap-2 h-full">
+<div class="p-4 max-w-prose flex flex-col gap-2 h-full grow">
 	<h1>Folk Art</h1>
 
 	<Player track={recordings[current]} on:previous={previous} on:next={next} />
