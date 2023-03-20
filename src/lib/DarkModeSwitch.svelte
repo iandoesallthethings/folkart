@@ -10,7 +10,7 @@
 	</button>
 </div>
 
-<style>
+<style lang="postcss">
 	.wrapper {
 		@apply flex items-center justify-between w-full block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100/20 rounded-md hover:text-gray-900 cursor-pointer;
 	}

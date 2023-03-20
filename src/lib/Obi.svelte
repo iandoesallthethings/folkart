@@ -1,36 +1,42 @@
 <script lang="ts">
-	import { darkMode } from './stores'
+	// let video
+	// let paused
+	// let imagePath = '/folkart1.jpg'
+	// let videoPath = ''
 
-	let video
-	let paused
-	let imagePath = '/folkart1.jpg'
-	let videoPath = ''
-
-	function toggleVideo() {
-		// video.paused ? video.play() : video.pause()
-		// paused = video.paused
-	}
+	// function toggleVideo() {
+	// 	// video.paused ? video.play() : video.pause()
+	// 	// paused = video.paused
+	// }
 </script>
 
-<div class="frame flex flex-row w-full dark:bg-black text-gray-700 dark:text-gray-300">
-	<aside style="--gradient-end: {$darkMode ? 'black' : 'white'}" on:click={toggleVideo}>
-		<!-- <video src={videoPath} poster={videoPath} preload={videoPath} class:paused playsInline muted loop autoplay bind:this={video} /> -->
-	</aside>
+<div class="frame ">
+	<!-- 
+		<aside on:click={toggleVideo}>
+			<video src={videoPath} poster={videoPath} preload={videoPath} class:paused playsInline muted loop autoplay bind:this={video} />
+		</aside> 
+	-->
+	<aside />
 
 	<div class="content">
 		<slot />
 	</div>
 </div>
 
-<style>
+<style lang="postcss">
 	.frame {
-		@apply w-screen h-screen overflow-hidden;
+		@apply flex flex-row w-full;
+		@apply dark:bg-black text-gray-700 dark:text-gray-300;
 	}
 
 	aside {
-		background: linear-gradient(to right, transparent 20%, var(--gradient-end)),
-			url('/folkart1.jpg');
-		@apply z-50 relative bg-cover bg-center w-32 md:w-52 h-screen flex justify-center items-center overflow-hidden transition;
+		@apply bg-obi dark:bg-obi-dark bg-cover bg-center transition;
+		@apply z-50 relative w-32 md:w-52;
+		@apply flex justify-center items-center overflow-hidden;
+	}
+
+	.content {
+		@apply w-full h-full;
 	}
 
 	/* .backgroundVideo {
@@ -40,8 +46,4 @@
 	/* .paused {
 		@apply hidden;
 	} */
-
-	.content {
-		@apply w-full mx-8 mt-4;
-	}
 </style>

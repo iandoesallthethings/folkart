@@ -8,7 +8,7 @@
 	</div>
 </div>
 
-<style>
+<style lang="postcss">
 	.tooltip-content {
 		@apply absolute top-8 right-0 object-contain text-xs m-1 p-3 z-10 w-max rounded-md bg-gray-500/30 dark:bg-gray-900/80 invisible group-hover:visible text-gray-600;
 	}

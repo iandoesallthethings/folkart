@@ -5,8 +5,8 @@
 	export let recordings
 	export let current
 
-	function select(i) {
-		dispatch('select', i)
+	function select(index) {
+		dispatch('select', index)
 	}
 </script>
 
@@ -18,9 +18,9 @@
 	{/each}
 </section>
 
-<style>
+<style lang="postcss">
 	.list {
-		@apply divide-y border rounded-md overflow-y-scroll h-1 w-full;
+		@apply divide-y border rounded-md overflow-y-scroll h-40 grow;
 	}
 
 	.list-card {
@@ -28,6 +28,6 @@
 	}
 
 	.list-card.selected {
-		@apply bg-sky-300 hover: bg-sky-200 dark:text-gray-800 transition;
+		@apply bg-sky-300 hover:bg-sky-200 dark:text-gray-800 transition;
 	}
 </style>

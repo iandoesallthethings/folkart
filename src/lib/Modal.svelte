@@ -26,7 +26,7 @@
 	</section>
 </div>
 
-<style>
+<style lang="postcss">
 	#wrapper {
 		@apply absolute top-0 left-0 w-full h-full items-center justify-center bg-gray-500/20 z-50 p-10;
 	}

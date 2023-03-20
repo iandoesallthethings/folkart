@@ -1,6 +1,6 @@
 <div class="spinner" />
 
-<style>
+<style lang="postcss">
 	.spinner {
 		width: 100%;
 		overflow-x: hidden;

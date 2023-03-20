@@ -20,7 +20,7 @@ Anyway, It relies on the Notion API as a backend, meaning maintaining the librar
 
 ## Bugs
 
-- [ ] Layout's wonky at mobile widths. Make it less wonky
+- [x] Layout's wonky at mobile widths. Make it less wonky
 - [ ] Waveform takes FOOOOORRRREEEEEEVER
 
 ## Developing

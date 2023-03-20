@@ -60,7 +60,7 @@
 	</div>
 </section>
 
-<style>
+<style lang="postcss">
 	p {
 		@apply my-5;
 	}

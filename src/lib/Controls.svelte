@@ -110,7 +110,7 @@
 	</div>
 </div>
 
-<style>
+<style lang="postcss">
 	#controls {
 		@apply flex space-x-2 items-center;
 	}
@@ -120,6 +120,6 @@
 	}
 
 	#volume {
-		@apply absolute -rotate-90 -left-6 bottom-10 hidden group-hover:block transition bg-white border p-1 rounded-md flex justify-center transition;
+		@apply absolute -rotate-90 -left-6 bottom-10 hidden group-hover:block  bg-white border p-1 rounded-md  justify-center transition;
 	}
 </style>

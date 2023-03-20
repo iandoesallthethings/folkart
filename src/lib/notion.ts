@@ -1,8 +1,9 @@
 import { Client } from '@notionhq/client'
 import hljs from 'highlight.js'
-import type { CSSClasses, HTML, PlainText } from '$lib/types'
+import type { CSSClasses, HTML, PlainText } from '../types'
+import { notionApiKey } from '$lib/secrets'
 
-const notion = new Client({ auth: process.env.NOTION_API_KEY })
+const notion = new Client({ auth: notionApiKey })
 
 export default notion
 
@@ -43,7 +44,7 @@ const propertyTypes = {
 	files: (p) => p.files[0]?.file.url,
 	checkbox: (p) => p.checkbox,
 	url: (p) => p.url,
-	multi_select: (p) => p.multi_select.map((f) => f.name)
+	multi_select: (p) => p.multi_select.map((f) => f.name),
 }
 
 function parsePage(page): HTML {
@@ -131,7 +132,7 @@ const blockTypes = {
 
 		if (env === 'development') return JSON.stringify(block)
 		else return `<p>[TODO: Implement ${block.type} blocks]</p>`
-	}
+	},
 }
 
 function parseRichText(rich_text): HTML {
@@ -173,7 +174,7 @@ function classes(chunk): CSSClasses {
 		annotations.underline ? 'underline' : '',
 		annotations.strikethrough ? 'line-through' : '',
 		annotations.code ? 'code' : '',
-		annotations.color !== 'default' ? `text-${annotations.color}-500` : ''
+		annotations.color !== 'default' ? `text-${annotations.color}-500` : '',
 	]
 		.join(' ')
 		.trim()

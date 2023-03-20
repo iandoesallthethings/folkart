@@ -64,15 +64,15 @@
 			overview: {
 				container: overview,
 				waveformColor: 'black',
-				playedWaveformColor: 'rgba(125, 211, 252, 100%)'
+				playedWaveformColor: 'rgba(125, 211, 252, 100%)',
 			},
 			zoomview: $showZoomView
 				? {
 						container: zoomview,
 						waveformColor: 'black',
-						playedWaveformColor: 'rgba(125, 211, 252, 100%)'
+						playedWaveformColor: 'rgba(125, 211, 252, 100%)',
 				  }
-				: undefined
+				: undefined,
 		}
 
 		Peaks.init(options, (error, peaks) => {
@@ -146,7 +146,7 @@
 	/>
 </section>
 
-<style>
+<style lang="postcss">
 	section {
 		@apply border rounded-md flex flex-col space-y-2 py-1;
 	}

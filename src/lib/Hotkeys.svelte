@@ -12,7 +12,7 @@
 	<div class="label">Toggle autoplay</div>
 </div>
 
-<style>
+<style lang="postcss">
 	.table {
 		@apply grid grid-cols-10 gap-2 max-w-max;
 	}

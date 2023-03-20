@@ -1,6 +1,6 @@
 import type { Writable } from 'svelte/store'
 import { writable } from 'svelte/store'
-import { browser } from '$app/env'
+import { browser } from '$app/environment'
 
 type LocalStorageKey = string
 
