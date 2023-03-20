@@ -20,7 +20,7 @@
 
 <style lang="postcss">
 	.list {
-		@apply divide-y border rounded-md overflow-y-scroll h-40 grow;
+		@apply divide-y border rounded-md overflow-y-scroll;
 	}
 
 	.list-card {
