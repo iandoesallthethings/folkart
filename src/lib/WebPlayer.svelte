@@ -127,7 +127,6 @@
 
 		<audio
 			id="player"
-			src="derp.mp3"
 			on:durationchange={load}
 			on:play={() => (playing = true)}
 			on:pause={() => (playing = false)}
