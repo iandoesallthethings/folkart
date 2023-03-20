@@ -14,8 +14,11 @@ const localStore: LocalStore = (key, initialValue) => {
 	const store = writable(initialValue)
 
 	if (browser) {
-		store.set(JSON.parse(localStorage.getItem(key)) || initialValue)
-		store.subscribe((value) => (localStorage[key] = JSON.stringify(value)))
+		const localStorageValue = JSON.parse(localStorage.getItem(key))
+		console.debug('localStorageValue', localStorageValue)
+		store.set(localStorageValue ?? initialValue)
+
+		store.subscribe((value) => (localStorage[key] = value))
 	}
 
 	return store
