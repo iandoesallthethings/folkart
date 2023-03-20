@@ -12,7 +12,7 @@
 
 	export let playing = false
 	export let muted = false
-	// export let castAvailable = false
+	export let castAvailable = false
 
 	let volume = 1.0
 
@@ -89,13 +89,13 @@
 			<div slot="content">Autoplay</div>
 		</ToolTip>
 
-		<!-- <ToolTip>
-			<button on:click={cast} slot="trigger">
+		<ToolTip>
+			<button on:click={cast} slot="trigger" class="hidden">
 				<i class="fa-brands fa-chromecast {castAvailable ? 'text-sky-400' : 'text-gray-300'} " />
 			</button>
 
 			<div slot="content">{castAvailable ? 'Cast' : 'No remote devices found'}</div>
-		</ToolTip> -->
+		</ToolTip>
 	</div>
 
 	<div class="flex items-center space-x-2 text-gray-300 mx-2">

@@ -26,3 +26,8 @@ export interface Db {
 	fields: Field[]
 	projects: Project[]
 }
+
+export interface Track {
+	name: string
+	Latest: string
+}

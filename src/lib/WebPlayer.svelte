@@ -6,13 +6,15 @@
 	import { autoplay, showZoomView } from '$lib/stores'
 	import Controls from '$lib/Controls.svelte'
 	import Loading from '$lib/Loading.svelte'
+	import type { PeaksInstance, PeaksOptions, PeaksInitCallback } from 'peaks.js'
+	import type { Track } from '$types'
 
 	const dispatch = createEventDispatcher()
 
-	export let track
+	export let track: Track
 
-	let player
-	let playing
+	let player: HTMLAudioElement
+	let playing: boolean
 
 	function next() {
 		dispatch('next')
@@ -31,34 +33,53 @@
 		player.paused ? player.play() : player.pause()
 	}
 
-	function skip(e) {
-		player.currentTime += e.detail
+	function skip(event: CustomEvent) {
+		player.currentTime += event.detail
 	}
 
 	function toggleMute() {
 		player.muted = !player.muted
 	}
 
-	function volumeChange(e) {
-		player.volume = e.detail
+	function volumeChange(event: CustomEvent) {
+		player.volume = event.detail
 
 		if (player.volume == 0.0) player.muted = true
 		else player.muted = false
 	}
 
-	let Peaks, instance, audioContext, overview, zoomview
+	interface PeaksJs {
+		init(options: PeaksOptions, callback?: PeaksInitCallback | undefined): PeaksInstance
+	}
+
+	let Peaks: PeaksJs
+	let instance: PeaksInstance
+	let audioContext: AudioContext
+	let overview: HTMLDivElement
+	let zoomview: HTMLDivElement
+
+	let castAvailable = false
 
 	onMount(async () => {
 		const module = await import('peaks.js')
 		Peaks = module.default
 		audioContext = new AudioContext()
-		player.remote.watchAvailability(availabilityCallback).catch(() => {
-			console.log('derp')
-		})
+
+		// player.remote.
+		player.remote.watchAvailability(availabilityCallback)
 	})
 
+	function availabilityCallback(available: boolean) {
+		console.debug('Cast availability changed to ' + available)
+		castAvailable = available
+	}
+	async function cast() {
+		console.debug(player)
+		await player.remote.prompt()
+	}
+
 	async function initPeaks() {
-		const options = {
+		const options: PeaksOptions = {
 			mediaElement: player,
 			webAudio: { audioContext },
 			overview: {
@@ -77,7 +98,7 @@
 
 		Peaks.init(options, (error, peaks) => {
 			if (error) console.log(error)
-			else instance = peaks
+			else instance = peaks!
 		})
 	}
 
@@ -90,17 +111,6 @@
 		// instance.setSource(options, (e) => console.log(e))
 		// }
 	}
-
-	// let castAvailable
-
-	// function availabilityCallback(available) {
-	// 	castAvailable = available
-	// }
-	// async function cast() {
-	// 	await player.remote.prompt()
-	// }
-
-	let castButton
 </script>
 
 <section>
@@ -116,13 +126,14 @@
 		</div>
 
 		<audio
+			id="player"
+			src="derp.mp3"
 			on:durationchange={load}
 			on:play={() => (playing = true)}
 			on:pause={() => (playing = false)}
 			on:ended={autoNext}
 			autoplay={$autoplay}
 			preload="auto"
-			remote="true"
 			bind:this={player}
 		>
 			<source src={track.Latest} type="audio/mpeg" />
@@ -132,9 +143,9 @@
 		</audio>
 	{/key}
 
-	<!-- {castAvailable} -->
 	<Controls
 		{playing}
+		{castAvailable}
 		muted={player?.muted}
 		on:playPause={playPause}
 		on:next={next}

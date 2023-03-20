@@ -1,21 +1,11 @@
-import type { Writable } from 'svelte/store'
 import { writable } from 'svelte/store'
 import { browser } from '$app/environment'
 
-type LocalStorageKey = string
-
-type JsonValue = string | number | boolean | null | JsonValue[] | { [key: string]: JsonValue }
-
-interface LocalStore {
-	(key: LocalStorageKey, initialValue: JsonValue): Writable<JsonValue>
-}
-
-const localStore: LocalStore = (key, initialValue) => {
+export default function createLocalStore<T>(key: string, initialValue: T) {
 	const store = writable(initialValue)
 
 	if (browser) {
-		const localStorageValue = JSON.parse(localStorage.getItem(key))
-		console.debug('localStorageValue', localStorageValue)
+		const localStorageValue = JSON.parse(localStorage.getItem(key) as string)
 		store.set(localStorageValue ?? initialValue)
 
 		store.subscribe((value) => (localStorage[key] = value))
@@ -23,5 +13,3 @@ const localStore: LocalStore = (key, initialValue) => {
 
 	return store
 }
-
-export default localStore
