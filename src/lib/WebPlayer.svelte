@@ -76,18 +76,14 @@
 	})
 
 	function availabilityCallback(available: boolean) {
-		console.debug('Cast availability changed to ' + available)
 		castAvailable = available
 	}
 
 	async function cast() {
-		console.debug(player)
 		await player.remote.prompt()
 	}
 
 	async function initPeaks() {
-		console.debug(track)
-
 		const waveformColor = 'lightgray'
 		const playedWaveformColor = 'rgba(125, 211, 252, 100%)'
 
@@ -117,7 +113,10 @@
 			if (error) return console.error(error)
 
 			instance = peaks!
-			if (!dataUri) updateWaveform()
+			if (!dataUri) {
+				// updateWaveform()
+				// downloadObjectAsJsonFile(instance.getWaveformData(), track.Name)
+			}
 		})
 	}
 
@@ -128,6 +127,16 @@
 			method: 'POST',
 			body: JSON.stringify({ track, data }),
 		})
+	}
+
+	async function downloadObjectAsJsonFile(exportObj: any, exportName: string) {
+		const dataStr = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(exportObj))
+		const downloadAnchorNode = document.createElement('a')
+		downloadAnchorNode.setAttribute('href', dataStr)
+		downloadAnchorNode.setAttribute('download', exportName + '.json')
+		document.body.appendChild(downloadAnchorNode) // required for firefox
+		downloadAnchorNode.click()
+		downloadAnchorNode.remove()
 	}
 
 	function load() {
