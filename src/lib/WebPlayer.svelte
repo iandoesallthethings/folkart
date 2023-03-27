@@ -6,7 +6,13 @@
 	import { autoplay, showZoomView } from '$lib/stores'
 	import Controls from '$lib/Controls.svelte'
 	import Loading from '$lib/Loading.svelte'
-	import type { PeaksInstance, PeaksOptions, PeaksInitCallback } from 'peaks.js'
+	import type {
+		PeaksInstance,
+		PeaksOptions,
+		PeaksInitCallback,
+		OverviewOptions,
+		ZoomViewOptions,
+	} from 'peaks.js'
 	import type { Track } from '$types'
 
 	const dispatch = createEventDispatcher()
@@ -55,8 +61,8 @@
 	let Peaks: PeaksJs
 	let instance: PeaksInstance
 	let audioContext: AudioContext
-	let overview: HTMLDivElement
-	let zoomview: HTMLDivElement
+	let overviewContainer: HTMLDivElement
+	let zoomviewContainer: HTMLDivElement
 
 	let castAvailable = false
 
@@ -65,7 +71,7 @@
 		Peaks = module.default
 		audioContext = new AudioContext()
 
-		// player.remote.
+		// YO Y THIS SHIT NO WORKIN'???
 		player.remote.watchAvailability(availabilityCallback)
 	})
 
@@ -73,43 +79,59 @@
 		console.debug('Cast availability changed to ' + available)
 		castAvailable = available
 	}
+
 	async function cast() {
 		console.debug(player)
 		await player.remote.prompt()
 	}
 
 	async function initPeaks() {
+		console.debug(track)
+
+		const waveformColor = 'lightgray'
+		const playedWaveformColor = 'rgba(125, 211, 252, 100%)'
+
+		const zoomview: ZoomViewOptions = {
+			container: zoomviewContainer,
+			waveformColor,
+			playedWaveformColor,
+		}
+
+		const overview: OverviewOptions = {
+			container: overviewContainer,
+			waveformColor,
+			playedWaveformColor,
+		}
+
+		const dataUri = track['Waveform Data'] ? { json: track['Waveform Data'] } : undefined
+
 		const options: PeaksOptions = {
 			mediaElement: player,
-			webAudio: { audioContext },
-			overview: {
-				container: overview,
-				waveformColor: 'lightgray',
-				playedWaveformColor: 'rgba(125, 211, 252, 100%)',
-			},
-			zoomview: $showZoomView
-				? {
-						container: zoomview,
-						waveformColor: 'lightgray',
-						playedWaveformColor: 'rgba(125, 211, 252, 100%)',
-				  }
-				: undefined,
+			dataUri,
+			webAudio: dataUri ? undefined : { audioContext },
+			overview,
+			zoomview: $showZoomView ? zoomview : undefined,
 		}
 
 		Peaks.init(options, (error, peaks) => {
-			if (error) console.log(error)
-			else instance = peaks!
+			if (error) return console.error(error)
+
+			instance = peaks!
+			if (!dataUri) updateWaveform()
 		})
 	}
 
-	// There's probably a more efficient way to do this than calling init every time :/
-	// But I can't get setSource to work nicely without it double-playing.
+	async function updateWaveform() {
+		console.warn(`Updating waveform for ${track.Name}`)
+		const data = instance.getWaveformData()
+		fetch('/waveform', {
+			method: 'POST',
+			body: JSON.stringify({ track, data }),
+		})
+	}
+
 	function load() {
 		if (Peaks) initPeaks()
-		// else {
-		// const options = { mediaUrl: track.Latest, webAudio: { audioContext } }
-		// instance.setSource(options, (e) => console.log(e))
-		// }
 	}
 </script>
 
@@ -117,11 +139,16 @@
 	{#key track}
 		<h3>{track.Name || ' '}</h3>
 
-		<div bind:this={zoomview} class:hidden={!$showZoomView} id="zoomview" class="flex waveformview">
+		<div
+			bind:this={zoomviewContainer}
+			class:hidden={!$showZoomView}
+			id="zoomview"
+			class="flex waveformview"
+		>
 			<Loading />
 		</div>
 
-		<div bind:this={overview} id="overview" class="flex waveformview">
+		<div bind:this={overviewContainer} id="overview" class="flex waveformview">
 			<Loading />
 		</div>
 

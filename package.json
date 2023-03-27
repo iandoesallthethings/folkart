@@ -41,9 +41,10 @@
 		"dotenv": "^16.0.3",
 		"dotenvenc": "^3.0.1",
 		"highlight.js": "^11.4.0",
-		"peaks.js": "^0.28.1",
 		"konva": "^8.3.2",
+		"peaks.js": "^0.28.1",
 		"waveform-data": "^4.3.0",
-		"wavesurfer.js": "^6.0.2"
+		"wavesurfer.js": "^6.0.2",
+		"web-audio-api": "^0.2.2"
 	}
 }

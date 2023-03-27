@@ -1,50 +1,82 @@
 import { Client } from '@notionhq/client'
 import hljs from 'highlight.js'
-import type { CSSClasses, HTML, PlainText } from '../types'
+import type { Query, CSSClasses, HTML, PlainText } from '../types'
 import { notionApiKey } from '$lib/secrets'
 
 const notion = new Client({ auth: notionApiKey })
 
 export default notion
 
-export async function getDb(queryObject) {
+export async function getDb<T>(query: Query): Promise<T[]> {
+	if (!query.database_id) throw new Error('No database_id provided')
+
 	try {
-		return (await notion.databases.query(queryObject)).results.map(parseProperties)
+		return (await notion.databases.query(query)).results.map(parseProperties) as unknown as T[]
 	} catch (error) {
 		console.log(error)
 		return []
 	}
 }
 
-export async function getDbWithPages(queryObject) {
+export async function updateWaveform(page_id: string, waveformData: unknown) {
+	return await notion.pages.update({
+		page_id,
+		properties: {
+			'Waveform Json': { rich_text: [{ text: { content: JSON.stringify(waveformData) } }] },
+		},
+	})
+}
+
+export async function getDbWithPages(query: Query) {
 	try {
-		return (await getDb(queryObject)).map(getPage)
+		return (await getDb(query)).map(getPage)
 	} catch (error) {
 		console.log(error)
 		return []
 	}
 }
 
-export async function getPage(row) {
+interface Row<T> {
+	id: string
+	properties: T
+}
+
+type PropertyType = 'title' | 'rich_text' | 'files' | 'checkbox' | 'url' | 'multi_select'
+
+interface Property {
+	type: PropertyType
+}
+
+export async function getPage<T>(row: Row<T>) {
 	return { ...row, page: parsePage(await notion.blocks.children.list({ block_id: row.id })) }
 }
 
-function parseProperties(row) {
+function parseProperties<T>(row: Row<T>) {
 	return { id: row.id, ...objectMap(row.properties, parseProperty) }
 }
 
-function parseProperty(property) {
+function parseProperty(property: Property) {
 	if (property.type in propertyTypes) return propertyTypes[property.type](property)
 	else return property
 }
 
-const propertyTypes = {
+interface PropertyParser {
+	(property: Property): unknown
+}
+
+const propertyTypes: { [key: string]: PropertyParser } = {
 	title: (p) => p.title[0].plain_text,
 	rich_text: (p) => parseRichText(p.rich_text),
 	files: (p) => p.files[0]?.file.url,
 	checkbox: (p) => p.checkbox,
 	url: (p) => p.url,
 	multi_select: (p) => p.multi_select.map((f) => f.name),
+	select: (p) => p.select.name,
+	number: (p) => p.number,
+	date: (p) => p.date,
+	email: (p) => p.email,
+	phone_number: (p) => p.phone_number,
+	collaborators: (p) => p.collaborators?.map((collaborator) => collaborator.name),
 }
 
 function parsePage(page): HTML {
@@ -58,8 +90,15 @@ function parsePage(page): HTML {
 		.join('')
 }
 
+interface Block {
+	type: string
+}
+
+interface BlockParser {
+	(block: Block): HTML
+}
 // TODO: video embeds
-const blockTypes = {
+const blockTypes: { [key: string]: BlockParser } = {
 	heading_1: (heading) => `<h1>${parseRichText(heading.text)}</h1>`,
 	heading_2: (heading) => `<h2>${parseRichText(heading.text)}</h2>`,
 	heading_3: (heading) => `<h3>${parseRichText(heading.text)}</h3>`,

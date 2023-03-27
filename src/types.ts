@@ -30,4 +30,21 @@ export interface Db {
 export interface Track {
 	name: string
 	Latest: string
+	'Waveform Data': string
+}
+
+export interface Sort {
+	property: string
+	direction: 'ascending' | 'descending'
+}
+
+export interface Filter {
+	property: string
+	checkbox: { equals: boolean }
+}
+
+export interface Query {
+	database_id?: string
+	sorts?: Sort[]
+	filter?: Filter
 }
