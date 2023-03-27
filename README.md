@@ -13,7 +13,7 @@ Anyway, It relies on the Notion API as a backend, meaning maintaining the librar
 - [x] Drop in ~~wavesurfer~~ Peaks.js for waveform view
 - [x] Give it some semblance of style 
 - [ ] Add remote play (i.e. chromecast, miracast, appleplay, etc)
-- [ ] Cache waveform data for faster display
+- [ ] Automatically update cached waveforms (blocked by notion api)
 - [ ] Animate obi image somehow (Artbreeder video?)
 - [ ] Different obi image/video per song
 - [ ] Collections/albums/playlists
@@ -21,7 +21,7 @@ Anyway, It relies on the Notion API as a backend, meaning maintaining the librar
 ## Bugs
 
 - [x] Layout's wonky at mobile widths. Make it less wonky
-- [ ] Waveform takes FOOOOORRRREEEEEEVER
+- [x] Waveform takes FOOOOORRRREEEEEEVER
 
 ## Developing
 
@@ -31,6 +31,8 @@ First you need a [Notion API Key for an integration with read permissions](https
 touch .env
 
 # Add NOTION_API_KEY and NOTION_RECORDINGS_DB for the table you created earlier.
+NOTION_API_KEY=
+NOTION_RECORDINGS_DB=
 ```
 
 Now you can actually run the app.
