@@ -84,13 +84,13 @@
 			webAudio: { audioContext },
 			overview: {
 				container: overview,
-				waveformColor: 'black',
+				waveformColor: 'lightgray',
 				playedWaveformColor: 'rgba(125, 211, 252, 100%)',
 			},
 			zoomview: $showZoomView
 				? {
 						container: zoomview,
-						waveformColor: 'black',
+						waveformColor: 'lightgray',
 						playedWaveformColor: 'rgba(125, 211, 252, 100%)',
 				  }
 				: undefined,
