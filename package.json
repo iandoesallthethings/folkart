@@ -15,11 +15,11 @@
 		"format": "prettier --plugin-search-dir . --write ."
 	},
 	"devDependencies": {
-		"@playwright/test": "^1.28.1",
+		"@playwright/test": "^1.32.3",
 		"@sveltejs/adapter-auto": "^2.0.0",
 		"@sveltejs/kit": "^1.15.5",
-		"@typescript-eslint/eslint-plugin": "^5.45.0",
-		"@typescript-eslint/parser": "^5.45.0",
+		"@typescript-eslint/eslint-plugin": "^5.58.0",
+		"@typescript-eslint/parser": "^5.58.0",
 		"autoprefixer": "^10.4.14",
 		"eslint": "^8.38.0",
 		"eslint-config-prettier": "^8.8.0",
@@ -37,7 +37,7 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"@notionhq/client": "^0.4.13",
+		"@notionhq/client": "^2.2.4",
 		"dotenv": "^16.0.3",
 		"dotenvenc": "^3.0.2",
 		"highlight.js": "^11.7.0",
