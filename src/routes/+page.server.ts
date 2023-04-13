@@ -2,6 +2,12 @@ import { getDb } from '$lib/notion'
 import { notionRecordingsDb } from '$lib/secrets'
 import type { Db, Filter, Sort } from '$types'
 
+export const config = {
+	isr: {
+		expiration: 60 * 60 * 24, // 24 hours
+	},
+}
+
 // const sorts = [{ property: 'Written', direction: 'ascending' }]
 const sorts: Sort[] = []
 const filter: Filter = { property: 'Published', checkbox: { equals: true } }
