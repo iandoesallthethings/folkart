@@ -1,4 +1,4 @@
-import adapter from '@sveltejs/adapter-auto'
+import adapter from '@sveltejs/adapter-vercel'
 import { vitePreprocess } from '@sveltejs/kit/vite'
 import path from 'path'
 
@@ -9,7 +9,11 @@ const config = {
 	preprocess: vitePreprocess(),
 
 	kit: {
-		adapter: adapter(),
+		adapter: adapter({
+			isr: {
+				expiration: 60 * 60 * 24, // Cache all responses for 12 hours
+			},
+		}),
 	},
 	alias: {
 		$types: path.resolve('./src/types.ts'),
