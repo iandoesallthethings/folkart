@@ -12,6 +12,7 @@ Anyway, It relies on the Notion API as a backend, meaning maintaining the librar
 - [x] Store autoplay and stuff in localstorage
 - [x] Drop in ~~wavesurfer~~ Peaks.js for waveform view
 - [x] Give it some semblance of style 
+- [ ] Proxy s3 urls so we can use ISR (notion expires urls after an hour)
 - [ ] Add remote play (i.e. chromecast, miracast, appleplay, etc)
 - [ ] Automatically update cached waveforms (blocked by notion api)
 - [ ] Animate obi image somehow (Artbreeder video?)

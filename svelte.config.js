@@ -10,9 +10,9 @@ const config = {
 
 	kit: {
 		adapter: adapter({
-			isr: {
-				expiration: 60 * 60 * 24, // Cache all responses for 12 hours
-			},
+			// isr: {
+			// 	expiration: 60 * 60 * 24, // Cache all responses for 12 hours
+			// },
 		}),
 	},
 	alias: {
