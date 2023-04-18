@@ -6,7 +6,6 @@ import type { Db, Filter, Sort } from '$types'
 const sorts: Sort[] = []
 const filter: Filter = { property: 'Published', checkbox: { equals: true } }
 
-/** @type {import('./$types').PageLoad} */
 export async function load() {
 	const recordings = await getDb<Db>({
 		database_id: notionRecordingsDb,

@@ -2,7 +2,6 @@
 	import Player from '$lib/WebPlayer.svelte'
 	import TrackList from '$lib/TrackList.svelte'
 
-	/** @type {import('./$types').PageData} */
 	export let data
 
 	const recordings = data.recordings

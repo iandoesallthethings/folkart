@@ -1,7 +1,6 @@
-import type { RequestHandler } from './$types'
-import * as Notion from '$lib/notion'
+// import * as Notion from '$lib/notion'
 
-export const POST: RequestHandler = async ({ request }) => {
+export async function POST({ request }) {
 	const { track, data } = await request.json()
 
 	// CHARACTER LIMIT IS 2000 and file uploads aren't supported?? 😡
