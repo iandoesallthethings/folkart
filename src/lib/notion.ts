@@ -1,6 +1,6 @@
 import { Client } from '@notionhq/client'
 import hljs from 'highlight.js'
-import type { Query, CSSClasses, HTML, PlainText } from '../types'
+import type { Query, CSSClasses, HTML, PlainText } from '$types'
 import { notionApiKey } from '$lib/secrets'
 
 const notion = new Client({ auth: notionApiKey })

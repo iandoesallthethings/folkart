@@ -28,7 +28,7 @@ export interface Db {
 }
 
 export interface Track {
-	name: string
+	Name: string
 	Latest: string
 	'Waveform Data': string
 }

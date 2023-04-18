@@ -14,9 +14,9 @@ const config = {
 			// 	expiration: 60 * 60 * 24, // Cache all responses for 12 hours
 			// },
 		}),
-	},
-	alias: {
-		$types: path.resolve('./src/types.ts'),
+		alias: {
+			$types: './src/types',
+		},
 	},
 }
 

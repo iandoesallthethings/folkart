@@ -1,19 +1,11 @@
 <script lang="ts">
+	import type * as P from 'peaks.js'
+	import type { Track } from '$types'
 	import { createEventDispatcher } from 'svelte'
 	import { onMount } from 'svelte/internal'
-	// import Peaks from 'peaks.js'
-
 	import { autoplay, showZoomView } from '$lib/stores'
 	import Controls from '$lib/Controls.svelte'
 	import Loading from '$lib/Loading.svelte'
-	import type {
-		PeaksInstance,
-		PeaksOptions,
-		PeaksInitCallback,
-		OverviewOptions,
-		ZoomViewOptions,
-	} from 'peaks.js'
-	import type { Track } from '$types'
 
 	const dispatch = createEventDispatcher()
 
@@ -54,12 +46,8 @@
 		else player.muted = false
 	}
 
-	interface PeaksJs {
-		init(options: PeaksOptions, callback?: PeaksInitCallback | undefined): PeaksInstance
-	}
-
-	let Peaks: PeaksJs
-	let instance: PeaksInstance
+	let Peaks: P.default
+	let instance: P.PeaksInstance
 	let audioContext: AudioContext
 	let overviewContainer: HTMLDivElement
 	let zoomviewContainer: HTMLDivElement
@@ -87,13 +75,13 @@
 		const waveformColor = 'lightgray'
 		const playedWaveformColor = 'rgba(125, 211, 252, 100%)'
 
-		const zoomview: ZoomViewOptions = {
+		const zoomview: P.ZoomViewOptions = {
 			container: zoomviewContainer,
 			waveformColor,
 			playedWaveformColor,
 		}
 
-		const overview: OverviewOptions = {
+		const overview: P.OverviewOptions = {
 			container: overviewContainer,
 			waveformColor,
 			playedWaveformColor,
@@ -101,7 +89,7 @@
 
 		const dataUri = track['Waveform Data'] ? { json: track['Waveform Data'] } : undefined
 
-		const options: PeaksOptions = {
+		const options: P.PeaksOptions = {
 			mediaElement: player,
 			dataUri,
 			webAudio: dataUri ? undefined : { audioContext },

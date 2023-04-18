@@ -1,6 +1,6 @@
+import type { Db, Filter, Sort } from '$types'
 import { getDb } from '$lib/notion'
 import { notionRecordingsDb } from '$lib/secrets'
-import type { Db, Filter, Sort } from '$types'
 
 // const sorts = [{ property: 'Written', direction: 'ascending' }]
 const sorts: Sort[] = []
