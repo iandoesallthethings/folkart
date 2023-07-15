@@ -1,0 +1,25 @@
+[package]
+name = "folkart"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+# tokio
+# axum
+# askama
+
+[package.metadata.commands]
+dev = { cmd = ["cargo cmd watch_tailwind", "cargo cmd watch_html"], parallel = true }
+build = ["cargo cmd build_tailwind","cargo cmd build_html"]
+# preview = ["cargo cmd build_tailwind","cargo cmd preview_html"]
+setup = ["cargo install cargo-watch --version 8.4.0 --root ./target/.cargo_install", "cargo install cargo-bundle --version 0.6.0 --root ./target/.cargo_install", "yarn --modules-folder ./target/node_modules"]
+watch_tailwind = "yarn --modules-folder ./target/node_modules tailwindcss -i ./src/main.css -o ./target/tailwind/built.css --watch"
+build_tailwind = "yarn --modules-folder ./target/node_modules tailwindcss -i ./src/main.css -o ./target/tailwind/built.css"
+
+watch_html = "cargo run -- dev"
+build_html = "cargo run -- build"
+# preview_html = ""
+
+# watch_dioxus = "./target/.cargo_install/bin/cargo-watch -x run"
+# build_dioxus = "./target/.cargo_install/bin/cargo-bundle bundle --release"
+# preview_dioxus = "./target/.cargo_install/bin/cargo-bundle bundle"
