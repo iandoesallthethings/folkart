@@ -1,9 +1,11 @@
+#![allow(non_snake_case)]
+
 use axum::{routing::get, Router};
 use std::net::SocketAddr;
 use std::{env, fs};
+
 mod assets;
 mod routes;
-mod templates;
 
 #[tokio::main]
 async fn main() {
@@ -27,7 +29,7 @@ async fn dev() {
 }
 
 fn build() {
-    fs::write("target/app/index.html", templates::render()).unwrap();
+    fs::write("target/app/index.html", routes::render_get()).unwrap();
     fs::copy(assets::built_css_path(), "target/app/main.css").unwrap();
 }
 
