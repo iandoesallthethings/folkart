@@ -10,16 +10,16 @@ dioxus-ssr = "0.3.0"
 tokio = { version = "1.29.1", features = ["full"] }
 
 [package.metadata.commands]
-dev = { cmd = ["cargo cmd watch_tailwind", "cargo cmd watch_axum"], parallel = true }
-build = ["cargo cmd build_tailwind","cargo cmd build_axum"]
-# preview = ["cargo cmd build_tailwind","cargo cmd preview_axum"]
+dev = { cmd = ["cargo cmd watch_tailwind", "cargo cmd watch_html"], parallel = true }
+build = ["cargo cmd build_tailwind","cargo cmd build_html"]
+# preview = ["cargo cmd build_tailwind","cargo cmd preview_html"]
 setup = ["cargo install cargo-watch --version 8.4.0 --root ./target/.cargo_install", "cargo install cargo-bundle --version 0.6.0 --root ./target/.cargo_install", "yarn --modules-folder ./target/node_modules"]
 watch_tailwind = "yarn --modules-folder ./target/node_modules tailwindcss -i ./src/main.css -o ./target/tailwind/built.css --watch"
 build_tailwind = "yarn --modules-folder ./target/node_modules tailwindcss -i ./src/main.css -o ./target/tailwind/built.css"
 
-watch_axum = "./target/.cargo_install/bin/cargo-watch -x 'run -- dev'"
-build_axum = "cargo run -- build"
-# preview_axum = ""
+watch_html = "./target/.cargo_install/bin/cargo-watch -x 'run -- dev'"
+build_html = "cargo run -- build"
+# preview_html = ""
 
 # watch_dioxus = "./target/.cargo_install/bin/cargo-watch -x run"
 # build_dioxus = "./target/.cargo_install/bin/cargo-bundle bundle --release"
