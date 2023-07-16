@@ -39,7 +39,7 @@ fn get_mode() -> Mode {
     match arg {
         "build" => Mode::Build,
         "dev" => Mode::Dev,
-        _ => panic!("Pass either 'dev' or 'buld' as an arg."),
+        _ => panic!("Pass either 'dev' or 'build' as an arg."),
     }
 }
 
