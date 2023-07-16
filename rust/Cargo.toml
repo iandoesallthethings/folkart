@@ -4,9 +4,9 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-# tokio
-# axum
-# askama
+askama = "0.12.0"
+axum = { version = "0.6.18", features = ["macros"] }
+tokio = { version = "1.29.1", features = ["full"] }
 
 [package.metadata.commands]
 dev = { cmd = ["cargo cmd watch_tailwind", "cargo cmd watch_html"], parallel = true }

@@ -5,7 +5,7 @@ pub fn render() -> String {
         body: Body { name: "world" },
     };
 
-    let compiled_template = index.render().unwrap();
+    index.render().unwrap()
 }
 
 #[derive(Template)]

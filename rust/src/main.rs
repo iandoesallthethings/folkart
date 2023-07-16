@@ -7,6 +7,7 @@ use axum::{
 use std::net::SocketAddr;
 use std::{env, fs};
 mod assets;
+mod routes;
 mod templates;
 
 #[tokio::main]
@@ -19,8 +20,8 @@ async fn main() {
 
 async fn dev() {
     let app = Router::new()
-        .route("/", get(templates::render))
-        .route("/main.css", get(assets::css));
+        .route("/", get(routes::get))
+        .route("/main.css", get(routes::main_css::get));
 
     let address = SocketAddr::from(([127, 0, 0, 1], 3000));
 
